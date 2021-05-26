@@ -25,7 +25,8 @@ $('#slider1, #slider2, #slider3').owlCarousel({
 
 $('.plus-cart').click(function(){
     var id=$(this).attr("pid").toString();
-    var eml = this.parentNode.childern[a]
+    var eml = this;//.parentNode.childern[0]
+    console.log(eml);
     $.ajax(
         {
             type:'GET',
@@ -34,9 +35,55 @@ $('.plus-cart').click(function(){
                 prod_id:id
             },
             success:function(data){
+                console.log(data);
                 eml.innerText = data.quantity
-                document.getElementById("amount").innerText=data.totalamount
+                document.getElementById("totalamount").innerText=data.totalamount
+                document.getElementById("amount").innerText=data.amount
             
+                
+            }
+        }
+    )
+
+})
+
+$('.minus-cart').click(function(){
+    var id=$(this).attr("pid").toString();
+    var eml = this;
+    $.ajax(
+        {
+            type:'GET',
+            url:"/minuscart",
+            data:{
+                prod_id:id
+            },
+            success:function(data){
+                eml.innerText = data.quantity
+                document.getElementById("totalamount").innerText=data.totalamount
+                document.getElementById("amount").innerText=data.amount
+            
+                
+            }
+        }
+    )
+
+})
+
+$('.remove-cart').click(function(){
+    var id=$(this).attr("pid").toString();
+    var eml = this;
+    $.ajax(
+        {
+            type:'GET',
+            url:"/removecart",
+            data:{
+                prod_id:id
+            },
+            success:function(data){
+                console.log('Delete')
+                document.getElementById("totalamount").innerText=data.totalamount
+                document.getElementById("amount").innerText=data.amount
+                eml.parentNode.parentNode.parentNode.parentNode.remove()
                 
             }
         }

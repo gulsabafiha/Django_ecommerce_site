@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html
+from django.urls import reverse
 from .models import (
     Customer,
     Product,
@@ -13,6 +15,7 @@ class CustomerModelAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class CustomerModelAdmin(admin.ModelAdmin):
     list_display=['id','title','selling_price','discounted_price','description','brand','category','product_image']
+    
 
 @admin.register(Cart)
 class CustomerModelAdmin(admin.ModelAdmin):
@@ -20,4 +23,12 @@ class CustomerModelAdmin(admin.ModelAdmin):
 
 @admin.register(OrderPlaced)
 class CustomerModelAdmin(admin.ModelAdmin):
-    list_display=['id','user','customer','product','quantity','ordered_date','status']
+    list_display=['id','user','customer','customer_info','product','product_info','quantity','ordered_date','status']
+    def customer_info(self,obj):
+        link=reverse("admin:app_customer_change",args=[obj.customer.pk])
+        return format_html('<a href="{}">{}</a>',link,obj.customer.name)
+
+
+    def product_info(self,obj):
+        link=reverse("admin:app_product_change",args=[obj.product.pk])
+        return format_html('<a href="{}">{}</a>',link,obj.product.title)
