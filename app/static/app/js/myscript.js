@@ -36,57 +36,56 @@ $('.plus-cart').click(function(){
             },
             success:function(data){
                 console.log(data);
-                eml.innerText = data.quantity
+                // eml.innerText = data.quantity
                 document.getElementById("totalamount").innerText=data.totalamount
                 document.getElementById("amount").innerText=data.amount
-            
-                
+                document.getElementById(id).innerText = data.quantity
             }
         }
     )
 
 })
 
-$('.minus-cart').click(function(){
-    var id=$(this).attr("pid").toString();
+$('.minus-cart').click(function () {
+    var id = $(this).attr("pid").toString();
     var eml = this;
+    console.log(eml);
     $.ajax(
         {
-            type:'GET',
-            url:"/minuscart",
-            data:{
-                prod_id:id
+            type: 'GET',
+            url: "/minuscart",
+            data: {
+                prod_id: id
             },
-            success:function(data){
-                eml.innerText = data.quantity
-                document.getElementById("totalamount").innerText=data.totalamount
-                document.getElementById("amount").innerText=data.amount
-            
-                
+            success: function (data) {
+                console.log(data);
+                // eml.innerText = data.quantity
+                document.getElementById("totalamount").innerText = data.totalamount
+                document.getElementById("amount").innerText = data.amount
+                document.getElementById(id).innerText = data.quantity
             }
         }
     )
+});
 
-})
-
-$('.remove-cart').click(function(){
-    var id=$(this).attr("pid").toString();
+$('.remove-cart').click(function () {
+    var id = $(this).attr("pid").toString();
     var eml = this;
     $.ajax(
         {
-            type:'GET',
-            url:"/removecart",
-            data:{
-                prod_id:id
+            type: 'GET',
+            url: "/removecart",
+            data: {
+                prod_id: id
             },
-            success:function(data){
+            success: function (data) {
                 console.log('Delete')
-                document.getElementById("totalamount").innerText=data.totalamount
-                document.getElementById("amount").innerText=data.amount
+                document.getElementById("totalamount").innerText = data.totalamount
+                document.getElementById("amount").innerText = data.amount
                 eml.parentNode.parentNode.parentNode.parentNode.remove()
                 
             }
         }
     )
 
-})
+});

@@ -116,8 +116,6 @@ def minus_cart(request):
     for p in cart_product:
       tempamount=(p.quantity * p.product.discounted_price)
       amount+=tempamount
-     
-
 
   data={
           'quantity':c.quantity,
@@ -140,8 +138,6 @@ def remove_cart(request):
     for p in cart_product:
       tempamount=(p.quantity * p.product.discounted_price)
       amount+=tempamount
-    
-
 
   data={
           
@@ -149,9 +145,6 @@ def remove_cart(request):
           'totalamount':amount+shipping_amount
         }
   return JsonResponse(data)
-
-
-      
 
 
 
@@ -166,7 +159,7 @@ def address(request):
     totalitem=len(Cart.objects.filter(user=request.user))
   return render(request, 'app/address.html',
   {'add':add,
-  'active':'btn-primary',
+  'active':'cart',
   'totalitem':totalitem
   })
 
@@ -227,8 +220,6 @@ def bottomwear(request,data=None):
 
 #Item Views End here
 
-
-
 class CustomerRegistrationView(View):
   def get(self,request):
     form= CustomerRegisterForm
@@ -280,7 +271,7 @@ class ProfileView(View):
       totalitem=len(Cart.objects.filter(user=request.user))
     return render(request,'app/profile.html',{
       'form':form,
-      'active':'btn-primary',
+      'active':'cart',
       'totalitem':totalitem
     })
 
